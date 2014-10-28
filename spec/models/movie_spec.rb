@@ -20,10 +20,4 @@ describe Movie do
       expect(result.length).to be > 0
     end
   end
-  #describe 'add to local database' do
-   # it 'should call movie detail' do
-    #  expect(Tmdb::Movie.detail(1)).to receive(:find).with('Inception')
-     # Movie.find_in_tmdb('Inception')
-    #end
-  #end
 end

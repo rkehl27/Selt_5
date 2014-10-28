@@ -77,7 +77,7 @@ class MoviesController < ApplicationController
     if !params[:tmdb_movies].nil?
       keysArray = params[:tmdb_movies].keys
       keysArray.each do |key|
-        Movie.add_to_db(key)
+        Movie.add_to_local_db(key)
       end
       flash[:warning] = "Movies successfully added to Rotten Potatoes"
     else

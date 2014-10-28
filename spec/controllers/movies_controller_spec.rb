@@ -23,13 +23,33 @@ describe MoviesController do
       post :search_tmdb, {:search_terms => 'hardware'}
       expect(assigns(:movies)) == fake_results
     end
-    it 'should flash if no movies are found' do
+    it 'should recognize if no movies are found' do
       #Movie = double(Movie)
       fake_results = []
       allow(Movie).to receive(:find_in_tmdb).and_return(fake_results)
       post :search_tmdb, {:search_terms => 'asdf'}
       expect(assigns(:movies)) == fake_results
     end
+    it 'should recognize invalid search terms' do
+      fake_results = []
+      allow(Movie).to receive(:find_in_tmdb).and_return(fake_results)
+      post :search_tmdb, {:search_terms => ''}
+      expect(assigns(:movies)) == fake_results
+    end
   end
+
+  describe 'adding movies to rotten potatoes' do
+    it 'should have a complete hash to create a movie' do
+      allow(Movie).to receive(:add_to_local_db)
+      post :add_to_db, {:movie => Movie, :tmdb_movies => {Movie => "1"}}
+      expect(response).to redirect_to(movies_path)
+   end
+   it 'should not add a movie without a complete hash' do
+      allow(Movie).to receive(:add_to_local_db)
+      post :add_to_db, {:movie => Movie}
+      expect(response).to redirect_to(movies_path)
+   end
+ end
+
 end
 

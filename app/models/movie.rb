@@ -3,7 +3,7 @@ class Movie < ActiveRecord::Base
     %w(G PG PG-13 R)
   end
 
-  def self.add_to_db(tmdb_id)
+  def self.add_to_local_db(tmdb_id)
     movie = Tmdb::Movie.detail(tmdb_id)
     hash = {:title => "#{movie.title}", :release_date => "#{movie.release_date}", :rating => "G" }
     Movie.create!(hash)

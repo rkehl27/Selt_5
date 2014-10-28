@@ -20,7 +20,7 @@ describe MoviesController do
       fake_results = [double('Movie'), double('Movie')]
       allow(Movie).to receive(:find_in_tmdb).and_return(fake_results)
       post :search_tmdb, {:search_terms => 'hardware'}
-      assigns(:movies).should == fake_results
+      expect(assigns(:movies)) == fake_results
     end
   end
 end

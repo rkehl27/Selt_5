@@ -73,4 +73,17 @@ class MoviesController < ApplicationController
     end
   end
 
+  def add_to_db
+    if !params[:tmdb_movies].nil?
+      keysArray = params[:tmdb_movies].keys
+      keysArray.each do |key|
+        Movie.add_to_db(key)
+      end
+      flash[:warning] = "Movies successfully added to Rotten Potatoes"
+    else
+      flash[:warning] = "No Movies selected"
+    end
+    redirect_to movies_path
+  end
+
 end
